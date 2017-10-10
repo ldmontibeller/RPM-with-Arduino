@@ -3,7 +3,8 @@
  * with a 10K pull-up resistor with 5V source. 
  * 
  * created by Leonardo Drews Montibeller
- * 10 Oct 2017
+ * modified 10 Oct 2017
+ * by Leonardo Drews Montibeller
  * 
  * This code is in the public domain.
  * 
@@ -25,9 +26,16 @@ void setup()
 void loop()
 { 
   noInterrupts();
-  FanSpeed = (pow(elapsedTimeInMicroseconds,-1)*60000000.0)/numberOfMagneticPoles;
-  Serial.print (FanSpeed, 3);
-  Serial.print (" RPM\r\n");
+  static unsigned long previousElapsedTime = 0;
+  if (previousElapsedTime != elapsedTimeInMicroseconds){
+    FanSpeed = (pow(elapsedTimeInMicroseconds,-1)*60000000.0)/numberOfMagneticPoles;
+    Serial.print (FanSpeed, 3);
+    Serial.print (" RPM\r\n");
+    previousElapsedTime = elapsedTimeInMicroseconds;
+    }
+  else {
+    Serial.print("0 RPM\r\n");
+  }
   interrupts();
   delay(500);
 }
@@ -39,4 +47,3 @@ void readTime()
   elapsedTimeInMicroseconds = thisTime - previousTimeInMicroseconds;
   previousTimeInMicroseconds = thisTime;
 }
- 
