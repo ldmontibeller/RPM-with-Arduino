@@ -6,6 +6,9 @@
  * 10 Oct 2017
  * 
  * This code is in the public domain.
+ * 
+ * https://github.com/ldmontibeller/RPM-with-Arduino/blob/master/Speed_3wire_PCfan.ino
+ * 
  */
 #include <math.h>
 #define intPin 0 //interruption 0 is the same as digital pin 2
